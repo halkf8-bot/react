@@ -1,16 +1,15 @@
-# React + Vite
+# Bài tập buổi 40: ReactJS, useState, map
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Dự án nhỏ này tập trung vào việc thực hành các kiến thức cơ bản nhưng quan trọng trong ReactJS. Mục tiêu chính là xây dựng một bảng danh sách học sinh có khả năng tương tác.
 
-Currently, two official plugins are available:
+- Logic xóa: Sử dụng phương thức filter để loại bỏ phần tử khỏi State.
+- Hiển thị: Sử dụng phương thức map để duyệt mảng và render giao diện linh hoạt.
+- Tương tác: Thêm các nút điều hướng (Edit/Delete) cho từng dòng dữ liệu.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Công nghệ sử dụng:
+- ReactJS Library: Thư viện chính để xây dựng giao diện.
+- JavaScript ES6+: Sử dụng Array Methods (map, filter) và Destructuring.
+- CSS-in-JS: Định nghĩa kiểu dáng trực tiếp trong cấu hình cột (inline styles).
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
