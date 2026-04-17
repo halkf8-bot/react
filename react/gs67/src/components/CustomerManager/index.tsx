@@ -177,7 +177,6 @@ export default function CustomerManager({ token, onLogout }: ManagerProps) {
                     </div>
                 </div>
             )}
-
         </div>
     );
 }
