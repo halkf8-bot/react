@@ -1,73 +1,19 @@
-# React + TypeScript + Vite
+# Dự án Quản lý Khách hàng (ReactJS + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Dự án này là một ứng dụng web cơ bản được xây dựng để quản lý thông tin khách hàng, sử dụng API hệ thống DOM.
 
-Currently, two official plugins are available:
+## Công nghệ sử dụng
+- **ReactJS**: Thư viện chính để xây dựng giao diện.
+- **TypeScript**: Tăng cường tính chặt chẽ và gợi ý mã nguồn.
+- **Axios**: Thư viện xử lý gọi API (cấu hình tại `src/plugins/axios.ts`).
+- **React-Toastify**: Hiển thị thông báo (Toast msg) cho người dùng.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Cấu trúc thư mục
+- `src/components/Login`: Xử lý đăng nhập và xác thực.
+- `src/components/CustomerManager`: Chức năng chính (Xem, Thêm, Sửa, Xóa, Tìm kiếm).
+- `src/plugins/axios.ts`: Cấu hình Base URL và các thiết lập chung cho API.
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Hướng dẫn cài đặt và khởi chạy
+1. **Cài đặt thư viện**:
+   ```bash
+   npm install
