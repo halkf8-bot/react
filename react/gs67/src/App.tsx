@@ -50,12 +50,11 @@ import { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// Import các file component vừa tách
 import Login from './components/Login';
 import CustomerManager from './components/CustomerManager';
 
 export default function App() {
-    // Kiểm tra xem trong bộ nhớ trình duyệt đã có token chưa
+    // Kiểm tra bộ nhớ trình duyệt đã có token chưa
     const [token, setToken] = useState<string>(localStorage.getItem('token') || '');
 
     const handleLogout = () => {

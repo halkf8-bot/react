@@ -95,7 +95,7 @@ export default function CustomerManager({ token, onLogout }: ManagerProps) {
         c.email.toLowerCase().includes(search.toLowerCase())
     );
 
-    // Các style dùng chung để code gọn hơn
+    // Các style dùng chung để code gọn
     const overlayStyle = { position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center' } as const;
     const modalStyle = { backgroundColor: 'white', padding: '20px', borderRadius: '8px', width: '400px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' };
     const inputStyle = { padding: '8px', border: '1px solid #ccc', borderRadius: '4px' };
@@ -168,7 +168,7 @@ export default function CustomerManager({ token, onLogout }: ManagerProps) {
             {deleteId && (
                 <div style={overlayStyle}>
                     <div style={modalStyle}>
-                        <h3 style={{ marginTop: 0, color: '#dc3545' }}>Xác nhận xóa</h3>
+                        <h3 style={{ marginTop: 0, textAlign: 'center', color: '#dc3545' }}>Xác nhận xóa</h3>
                         <p>Bạn có chắc chắn muốn xóa khách hàng này không? Hành động này không thể hoàn tác.</p>
                         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '20px' }}>
                             <button onClick={() => setDeleteId(null)} style={{ padding: '8px 12px', cursor: 'pointer' }}>Hủy</button>

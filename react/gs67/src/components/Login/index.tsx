@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import api from '../../plugins/axios';
 
-// Định nghĩa kiểu dữ liệu cho Props truyền từ App vào
+// Định nghĩa kiểu dữ liệu cho Props truyền từ App
 interface LoginProps {
     setToken: (token: string) => void;
 }
@@ -14,7 +14,7 @@ export default function Login({ setToken }: LoginProps) {
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            // Sử dụng instance 'api' của bạn thay vì fetch
+            // Sử dụng instance 'api'
             const res = await api.post('/auth/signin', { email, password });
 
             // Axios tự động parse JSON, dữ liệu nằm trong res.data
