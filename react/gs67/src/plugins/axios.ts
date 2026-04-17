@@ -1,0 +1,20 @@
+import axios from 'axios'
+
+// const baseURL = "https://jsonplaceholder.typicode.com"
+// const baseURL = "https://k305jhbh09.execute-api.ap-southeast-1.amazonaws.com"
+
+const api = axios.create({
+    baseURL: '/api',
+})
+
+// api.interceptors.request.use(
+//     (config) => {
+//         const token = localStorage.getItem("accessToken");
+//         if (token) {
+//             config.headers["Authorization"] = `Bearer ${token}`
+//         }
+//         return config;
+//     }
+// );
+
+export default api
