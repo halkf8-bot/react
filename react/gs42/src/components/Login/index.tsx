@@ -32,7 +32,7 @@ export default function Login({ setToken }: LoginProps) {
         <Container maxWidth="xs">
             {/* Paper tạo hiệu ứng đổ bóng cho form */}
             <Paper elevation={3} sx={{ padding: 4, marginTop: 10, textAlign: 'center', borderRadius: 2 }}>
-                <Typography variant="h5" fontWeight="bold" gutterBottom>
+                <Typography variant="h5" sx={{ fontWeight: 'bold' }} gutterBottom>
                     Đăng nhập hệ thống
                 </Typography>
 

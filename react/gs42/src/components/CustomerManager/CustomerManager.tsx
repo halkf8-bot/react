@@ -1,28 +1,22 @@
+// File: src/components/CustomerManager/CustomerManager.tsx
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import api from '../../plugins/axios';
 
 import {
-    Box, Button, TextField, Typography, Container, Paper, MenuItem,
-    Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
+    Box, Button, TextField, Typography, Container,
     Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText
 } from '@mui/material';
 
-interface Customer {
-    id?: number;
-    name: string;
-    email: string;
-    phone: string;
-    address: string;
-    rank: string;
-}
+import CommonTable, { type Customer } from '../CommonTable/CommonTable';
+// Import file Dialog bạn vừa tạo
+import CustomerDialog from '../CustomerDialog/CustomerDialog';
 
 interface ManagerProps {
-    token: string;
     onLogout: () => void;
 }
 
-export default function CustomerManager({ token, onLogout }: ManagerProps) {
+export default function CustomerManager({ onLogout }: ManagerProps) {
     const [customers, setCustomers] = useState<Customer[]>([]);
     const [search, setSearch] = useState('');
 
@@ -31,13 +25,11 @@ export default function CustomerManager({ token, onLogout }: ManagerProps) {
     const [editId, setEditId] = useState<number | null>(null);
     const [deleteId, setDeleteId] = useState<number | null>(null);
 
-    const config = { headers: { Authorization: `Bearer ${token}` } };
-
     useEffect(() => { fetchCustomers(); }, []);
 
     const fetchCustomers = async () => {
         try {
-            const res = await api.get('/customers', config);
+            const res = await api.get('/customers');
             setCustomers(res.data);
         } catch { toast.error("Lỗi tải danh sách!"); }
     };
@@ -45,7 +37,7 @@ export default function CustomerManager({ token, onLogout }: ManagerProps) {
     const executeDelete = async () => {
         if (!deleteId) return;
         try {
-            await api.delete(`/customers/${deleteId}`, config);
+            await api.delete(`/customers/${deleteId}`);
             toast.success("Đã xóa khách hàng!");
             setDeleteId(null);
             fetchCustomers();
@@ -63,15 +55,14 @@ export default function CustomerManager({ token, onLogout }: ManagerProps) {
         setShowModal(true);
     };
 
-    // const handleSave = async (e: React.FormEvent) => {
     const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             if (editId) {
-                await api.put(`/customers/${editId}`, formData, config);
+                await api.put(`/customers/${editId}`, formData);
                 toast.success("Cập nhật thành công!");
             } else {
-                await api.post('/customers', formData, config);
+                await api.post('/customers', formData);
                 toast.success("Thêm mới thành công!");
             }
             setShowModal(false);
@@ -86,13 +77,11 @@ export default function CustomerManager({ token, onLogout }: ManagerProps) {
 
     return (
         <Container maxWidth="lg" sx={{ mt: 4 }}>
-            {/* Header */}
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-                <Typography variant="h4" fontWeight="bold">Quản lý Khách hàng</Typography>
+                <Typography variant="h4" sx={{ fontWeight: 'bold' }}>Quản lý Khách hàng</Typography>
                 <Button variant="outlined" color="error" onClick={onLogout}>Đăng xuất</Button>
             </Box>
 
-            {/* Thanh công cụ Tìm kiếm & Thêm mới */}
             <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
                 <TextField
                     label="Tìm kiếm tên, email..." variant="outlined" size="small"
@@ -103,63 +92,23 @@ export default function CustomerManager({ token, onLogout }: ManagerProps) {
                 </Button>
             </Box>
 
-            {/* Bảng dữ liệu MUI */}
-            <TableContainer component={Paper} elevation={2}>
-                <Table sx={{ minWidth: 650 }}>
-                    <TableHead sx={{ backgroundColor: '#f5f5f5' }}>
-                        <TableRow>
-                            <TableCell><b>ID</b></TableCell>
-                            <TableCell><b>Tên</b></TableCell>
-                            <TableCell><b>Email</b></TableCell>
-                            <TableCell><b>SĐT</b></TableCell>
-                            <TableCell><b>Hạng</b></TableCell>
-                            <TableCell align="center"><b>Hành động</b></TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {filteredCustomers.map((row) => (
-                            <TableRow key={row.id} hover>
-                                <TableCell>{row.id}</TableCell>
-                                <TableCell>{row.name}</TableCell>
-                                <TableCell>{row.email}</TableCell>
-                                <TableCell>{row.phone}</TableCell>
-                                <TableCell>{row.rank}</TableCell>
-                                <TableCell align="center">
-                                    <Button size="small" color="primary" onClick={() => openModal(row)} sx={{ mr: 1 }}>Sửa</Button>
-                                    <Button size="small" color="error" onClick={() => setDeleteId(row.id!)}>Xóa</Button>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                        {filteredCustomers.length === 0 && (
-                            <TableRow><TableCell colSpan={6} align="center">Không có dữ liệu</TableCell></TableRow>
-                        )}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+            <CommonTable
+                data={filteredCustomers}
+                onEdit={openModal}
+                onDelete={setDeleteId}
+            />
 
-            {/* Popup Dialog Thêm/Sửa bằng MUI */}
-            <Dialog open={showModal} onClose={() => setShowModal(false)} fullWidth maxWidth="sm">
-                <DialogTitle fontWeight="bold">{editId ? 'Sửa thông tin' : 'Thêm khách hàng'}</DialogTitle>
-                <form onSubmit={handleSave}>
-                    <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: 1 }}>
-                        <TextField label="Tên khách hàng" required fullWidth value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} />
-                        <TextField label="Email" type="email" required fullWidth value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} />
-                        <TextField label="Số điện thoại" fullWidth value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} />
-                        <TextField label="Địa chỉ" fullWidth value={formData.address} onChange={e => setFormData({...formData, address: e.target.value})} />
-                        <TextField select label="Hạng khách hàng" fullWidth value={formData.rank} onChange={e => setFormData({...formData, rank: e.target.value})}>
-                            <MenuItem value="BRONZE">BRONZE</MenuItem>
-                            <MenuItem value="SILVER">SILVER</MenuItem>
-                            <MenuItem value="GOLD">GOLD</MenuItem>
-                        </TextField>
-                    </DialogContent>
-                    <DialogActions sx={{ p: 2, pt: 0 }}>
-                        <Button onClick={() => setShowModal(false)} color="inherit">Hủy</Button>
-                        <Button type="submit" variant="contained" color="primary">Lưu thông tin</Button>
-                    </DialogActions>
-                </form>
-            </Dialog>
+            {/* Gọi Component CustomerDialog và truyền các Props xuống */}
+            <CustomerDialog
+                open={showModal}
+                onClose={() => setShowModal(false)}
+                formData={formData}
+                setFormData={setFormData}
+                onSave={handleSave}
+                isEdit={Boolean(editId)} // Nếu có editId thì là trạng thái Sửa, ngược lại là Thêm
+            />
 
-            {/* Popup Dialog Xác nhận Xóa */}
+            {/* Popup Dialog Xác nhận Xóa (Bạn có thể để tạm ở đây hoặc tách ra component DeleteConfirmDialog nếu muốn code gọn nữa) */}
             <Dialog open={Boolean(deleteId)} onClose={() => setDeleteId(null)}>
                 <DialogTitle color="error">Xác nhận xóa</DialogTitle>
                 <DialogContent>

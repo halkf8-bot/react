@@ -1,0 +1,20 @@
+/* src/components/Button/Button.css */
+
+.my-basic-button {
+    padding: 10px 10px;         /* Khoảng cách bên trong nút, giúp nút to ra */
+    background-color: #646cff;  /* Màu nền xanh tím của Vite */
+    color: white;               /* Màu chữ trắng */
+    border: red solid 5px;
+    border-radius: 50%;         /* Bo tròn các góc */
+    font-size: 50px;            /* Cỡ chữ dễ nhìn */
+    font-weight: bold;          /* In đậm chữ */
+    cursor: pointer;            /* Biến con trỏ chuột thành hình bàn tay khi chỉ vào */
+    font-family: "Google Sans Code", monospace;
+    transition: background-color 0.3s, transform 0.5s ease-in-out;
+}
+
+/* Khi người dùng di chuột (hover) vào nút */
+.my-basic-button:hover {
+    background-color: red;  /* Đổi sang màu sáng hơn một chút */
+    transform: rotate(360deg);
+}

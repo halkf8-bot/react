@@ -3,7 +3,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Login from './components/Login';
-import CustomerManager from './components/CustomerManager';
+import CustomerManager from './components/CustomerManager/CustomerManager.tsx';
 
 export default function App() {
     // Kiểm tra bộ nhớ trình duyệt đã có token chưa
@@ -22,7 +22,7 @@ export default function App() {
             {!token ? (
                 <Login setToken={setToken} />
             ) : (
-                <CustomerManager token={token} onLogout={handleLogout} />
+                <CustomerManager onLogout={handleLogout} />
             )}
         </>
     );
